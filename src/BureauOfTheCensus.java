@@ -21,7 +21,7 @@ public class BureauOfTheCensus {
 		String fileName = "";
 		//generate txt file
 		try {
-			generatePeople(1000000);
+			generatePeople(100);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
@@ -51,6 +51,22 @@ public class BureauOfTheCensus {
 		int population = census.getPopulation(year);
 		//Result
 		System.out.println("Biggest population was "+population+" in "+year);
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter("censusResults.txt", "UTF-8");
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			writer = null;
+			e.printStackTrace();
+		}
+		if(writer != null)
+		{
+			writer.println("Biggest population was "+population+" in "+year);
+			for(String line : census.getAllYears().split("\n"))
+			{
+				writer.println(line);
+			}
+		}
+		writer.close();
 	}
 	/**
 	 * Helper method to generate random people with random birth and death years

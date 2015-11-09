@@ -193,6 +193,24 @@ public class Census {
 		return this.highestYear();
 	}
 	/**
+	 * Releases the population for all years
+	 * @return the String form of all the populations
+	 * @throws IllegalStateException if you havent run the census
+	 */
+	public String getAllYears() throws IllegalStateException
+	{
+		if(!ranCensus)
+		{
+			throw new IllegalStateException("You must first start the census");
+		}
+		String data = "";
+		for(Integer key : census.keySet())
+		{
+			data += "Population in " + key + ": " + census.get(key) + "\n";
+		}
+		return data;
+	}
+	/**
 	 * Helper method to get key from value
 	 * @return year of highest population / key in the map
 	 */
